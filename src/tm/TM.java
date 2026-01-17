@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tourna;
+package tm;
 
 /**
  *
  * @author Hp
  */
-public class Tourna {
+public class TM {
 
     /**
      * @param args the command line arguments
