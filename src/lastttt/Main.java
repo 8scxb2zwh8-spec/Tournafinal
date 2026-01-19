@@ -19,14 +19,20 @@ import java.net.URISyntaxException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 public class Main extends javax.swing.JFrame {
+    private String savedUsername = "";
+    private String savedBio = "";
+    private boolean isSaved = false;
 
    public Main() {
         initComponents();
         setLocationRelativeTo(null); 
 // center window
+
     }
    private Connection connectDB() {
     try {
@@ -41,12 +47,15 @@ public class Main extends javax.swing.JFrame {
         return null;
     }
 }
+   
+    // ✅ THIS IS WHAT YOU ARE MISSING
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollBar1 = new javax.swing.JScrollBar();
         mainPanel = new javax.swing.JPanel();
         Signup = new javax.swing.JPanel();
         Page1 = new javax.swing.JPanel();
@@ -92,7 +101,7 @@ public class Main extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         home = new javax.swing.JButton();
         map = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
+        profilebtn = new javax.swing.JButton();
         notif = new javax.swing.JButton();
         message = new javax.swing.JButton();
         maps = new javax.swing.JPanel();
@@ -122,6 +131,16 @@ public class Main extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         back5 = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        txtUsername = new javax.swing.JTextField();
+        txtBio = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        btnProfilePic = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        btnAddPost = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         notification = new javax.swing.JPanel();
         PGE1 = new javax.swing.JPanel();
         back6 = new javax.swing.JButton();
@@ -491,9 +510,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton15.setBackground(new java.awt.Color(255, 102, 0));
-        jButton15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lastttt/icons8-profile-20.png"))); // NOI18N
-        jButton15.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        profilebtn.setBackground(new java.awt.Color(255, 102, 0));
+        profilebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lastttt/icons8-profile-20.png"))); // NOI18N
+        profilebtn.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        profilebtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profilebtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -505,7 +529,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addComponent(map, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(profilebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
         );
         jPanel2Layout.setVerticalGroup(
@@ -514,7 +538,7 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton15, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(profilebtn, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(map, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(home, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -927,17 +951,126 @@ public class Main extends javax.swing.JFrame {
                 .addGap(148, 148, 148))
         );
 
+        lblUsername.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblUsername.setText("Username:");
+
+        lblEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblEmail.setText("Bio:");
+
+        txtUsername.setBackground(new java.awt.Color(255, 102, 51));
+        txtUsername.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        txtBio.setBackground(new java.awt.Color(255, 102, 51));
+        txtBio.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtBio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBioActionPerformed(evt);
+            }
+        });
+
+        jPanel10.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+
+        btnProfilePic.setBackground(new java.awt.Color(255, 102, 0));
+        btnProfilePic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lastttt/icons8-profile-50.png"))); // NOI18N
+        btnProfilePic.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnProfilePic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfilePicActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel21.setText("Followers: 0");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel22.setText("Following: 0");
+
+        btnAddPost.setBackground(new java.awt.Color(255, 59, 0));
+        btnAddPost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lastttt/icons8-add-25.png"))); // NOI18N
+        btnAddPost.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnAddPost.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddPostActionPerformed(evt);
+            }
+        });
+
+        btnSave.setBackground(new java.awt.Color(255, 59, 0));
+        btnSave.setText("Save");
+        btnSave.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout p1Layout = new javax.swing.GroupLayout(p1);
         p1.setLayout(p1Layout);
         p1Layout.setHorizontalGroup(
             p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(p1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p1Layout.createSequentialGroup()
+                        .addComponent(lblEmail)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBio))
+                    .addGroup(p1Layout.createSequentialGroup()
+                        .addComponent(btnProfilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel22))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(p1Layout.createSequentialGroup()
+                        .addComponent(lblUsername)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtUsername))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAddPost, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnSave, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         p1Layout.setVerticalGroup(
             p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p1Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 440, Short.MAX_VALUE))
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p1Layout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel22))
+                    .addComponent(btnProfilePic, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblUsername)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(p1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBio, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblEmail))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSave)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 192, Short.MAX_VALUE)
+                .addComponent(btnAddPost, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout profiletabLayout = new javax.swing.GroupLayout(profiletab);
@@ -1213,6 +1346,95 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void profilebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profilebtnActionPerformed
+        java.awt.CardLayout cl = (java.awt.CardLayout) mainPanel.getLayout();
+        cl.show(mainPanel, "profile");
+    }//GEN-LAST:event_profilebtnActionPerformed
+
+    private void btnProfilePicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfilePicActionPerformed
+        changeProfilePicture();
+    }//GEN-LAST:event_btnProfilePicActionPerformed
+
+    private void txtBioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBioActionPerformed
+
+    private void btnAddPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPostActionPerformed
+       JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Select an image to post");
+    fileChooser.setFileFilter(new FileNameExtensionFilter("Image files", "jpg", "png", "jpeg", "gif"));
+
+    int result = fileChooser.showOpenDialog(this); // 'this' refers to your JFrame
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+        String imagePath = selectedFile.getAbsolutePath();
+
+    }
+    
+    }//GEN-LAST:event_btnAddPostActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+         if (isSaved) {
+        return; // already saved, do nothing
+    }
+
+    String username = txtUsername.getText().trim();
+    String bio = txtBio.getText().trim();
+
+    if (username.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Username cannot be empty");
+        return;
+    }
+
+    // Save in memory only
+    savedUsername = username;
+    savedBio = bio;
+
+    // Lock fields
+    txtUsername.setEditable(false);
+    txtBio.setEditable(false);
+
+    // Optional: disable save button
+    btnSave.setText("Saved");
+
+    isSaved = true;
+    }//GEN-LAST:event_btnSaveActionPerformed
+    private void setDefaultProfilePicture() {
+    ImageIcon icon = new ImageIcon(
+        getClass().getResource("/icons/default_user.png")
+    );
+
+    Image img = icon.getImage().getScaledInstance(
+            btnProfilePic.getWidth(),
+            btnProfilePic.getHeight(),
+            Image.SCALE_SMOOTH
+    );
+
+    btnProfilePic.setIcon(new ImageIcon(img));
+}
+    private void changeProfilePicture() {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Change Profile Picture");
+
+        FileNameExtensionFilter filter =
+                new FileNameExtensionFilter("Image Files", "jpg", "png", "jpeg");
+        chooser.setFileFilter(filter);
+
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+
+            ImageIcon icon = new ImageIcon(file.getAbsolutePath());
+            Image img = icon.getImage().getScaledInstance(
+                    btnProfilePic.getWidth(),
+                    btnProfilePic.getHeight(),
+                    Image.SCALE_SMOOTH
+            );
+
+            btnProfilePic.setIcon(new ImageIcon(img));
+        }
+    }
+    
+    
     private void saveProfilePicPathToDB(String path) {
     try {
         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/accounts", "root", "");
@@ -1278,6 +1500,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton back6;
     private javax.swing.JButton back7;
     private javax.swing.JButton backk;
+    private javax.swing.JButton btnAddPost;
+    private javax.swing.JButton btnProfilePic;
+    private javax.swing.JButton btnSave;
     private javax.swing.JPanel chats;
     private javax.swing.JTextField email;
     private javax.swing.JTextField email2;
@@ -1288,7 +1513,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -1311,6 +1535,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1319,6 +1545,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1326,8 +1553,9 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblUsername;
     private javax.swing.JButton login;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton map;
@@ -1342,9 +1570,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPasswordField password2;
     private javax.swing.JPanel pg1;
     private javax.swing.JPanel pge1;
+    private javax.swing.JButton profilebtn;
     private javax.swing.JPanel profiletab;
     private javax.swing.JPanel shop;
     private javax.swing.JPanel teamsandfriends;
+    private javax.swing.JTextField txtBio;
+    private javax.swing.JTextField txtUsername;
     private javax.swing.JPanel vidslive;
     // End of variables declaration//GEN-END:variables
 }
