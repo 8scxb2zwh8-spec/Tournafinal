@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pick Location</title>
+
+    <!-- Leaflet CSS -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet/dist/leaflet.css"
+    />
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .top-bar button {
+            padding: 8px 14px;
+            font-size: 14px;
+            background: #ff7a00;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .top-bar button:hover {
+            background: #e56f00;
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <button onclick="closeMap()">Close Map</button>
+</div>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    // Default location (Philippines center-ish)
+    const map = L.map('map').setView([12.8797, 121.7740], 6);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    function closeMap() {
+        window.close();
+    }
+</script>
+
+</body>
+</html>
