@@ -13,8 +13,8 @@ import java.net.URLEncoder;
 
 public class FacebookoAuth {
        // Replace these with your Facebook App credentials
-    private static final String CLIENT_ID = "1182701540691282"; // your App ID
-    private static final String CLIENT_SECRET = "f57db4b7a025fd45349e09bda8012592"; // your App Secret
+    //private static final String CLIENT_ID = "1182701540691282"; // your App ID
+    //private static final String CLIENT_SECRET = "f57db4b7a025fd45349e09bda8012592"; // your App Secret
     private static final String REDIRECT_URI = "http://localhost:8080/fbcallback";
 
     /**
