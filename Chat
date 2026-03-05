@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TournaMeet – Messages</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet"/>
+<style>
+/* ── THEME TOKENS ── */
+[data-theme="dark"] {
+  --bg:         #0F0F12;
+  --bg2:        #17171D;
+  --bg3:        #1F1F28;
+  --bg4:        #2A2A36;
+  --mid:        #3A3A4A;
+  --border:     #2E2E3E;
+  --text:       #F0EFF5;
+  --text-dim:   #9898AC;
+  --text-faint: #55556A;
+  --shadow:     0 8px 32px #00000055;
+}
+[data-theme="light"] {
+  --bg:         #F4F3F8;
+  --bg2:        #FFFFFF;
+  --bg3:        #EDEAF5;
+  --bg4:        #E4E0F0;
+  --mid:        #C5C2D5;
+  --border:     #DDD9EE;
+  --text:       #1A1828;
+  --text-dim:   #56547A;
+  --text-faint: #9896B8;
+  --shadow:     0 8px 32px #0000001A;
+}
+:root {
+  --orange:      #FF6A00;
+  --orange-glow: #FF6A0033;
+  --radius:      12px;
+  --radius-sm:   8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: 'Barlow', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transition: background .3s, color .3s;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  z-index: 100; display: flex; align-items: center;
+  height: 60px; padding: 0 24px; gap: 8px;
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow); flex-shrink: 0;
+  transition: background .3s, border-color .3s;
+}
+.logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900; font-size: 22px; letter-spacing: 1px;
+  color: var(--text); margin-right: auto; white-space: nowrap;
+  transition: color .3s;
+}
+.logo span { color: var(--orange); }
+
+.nav-link {
+  font-size: 13px; font-weight: 600; color: var(--text-dim);
+  text-decoration: none; padding: 6px 12px; border-radius: var(--radius-sm);
+  transition: all .2s; white-space: nowrap;
+}
+.nav-link:hover { color: var(--orange); background: var(--orange-glow); }
+.nav-link.active { color: var(--orange); background: var(--orange-glow); }
+
+.topbar-actions { display: flex; align-items: center; gap: 10px; }
+
+.theme-btn {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 17px; transition: all .2s;
+  flex-shrink: 0;
+}
+.theme-btn:hover { border-color: var(--orange); transform: rotate(20deg); }
+
+.notif-link {
+  position: relative; cursor: pointer;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 8px 10px;
+  color: var(--text-dim); font-size: 17px; transition: all .2s;
+  text-decoration: none; display: flex; align-items: center;
+}
+.notif-link:hover { border-color: var(--orange); color: var(--orange); }
+.notif-badge {
+  position: absolute; top: -4px; right: -4px;
+  background: var(--orange); color: #fff;
+  font-size: 10px; font-weight: 700;
+  width: 18px; height: 18px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--bg2);
+}
+
+.avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange), #FF3D00);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px; color: #fff; cursor: pointer;
+  border: 2px solid var(--border); transition: border-color .2s;
+  flex-shrink: 0;
+}
+.avatar:hover { border-color: var(--orange); }
+
+/* ── LAYOUT ── */
+.app { display: flex; flex: 1; overflow: hidden; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 280px; min-width: 280px;
+  background: var(--bg2); border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  transition: background .3s, border-color .3s;
+}
+.sidebar-header { padding: 20px 16px 12px; border-bottom: 1px solid var(--border); }
+.sidebar-title  {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700; font-size: 18px; margin-bottom: 12px; letter-spacing: .5px;
+}
+
+.search-box { position: relative; }
+.search-box input {
+  width: 100%; background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 9px 12px 9px 36px;
+  color: var(--text); font-family: 'Barlow', sans-serif; font-size: 13px;
+  outline: none; transition: border-color .2s, background .3s;
+}
+.search-box input::placeholder { color: var(--text-faint); }
+.search-box input:focus { border-color: var(--orange); }
+.search-icon {
+  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
+  color: var(--text-faint); font-size: 14px; pointer-events: none;
+}
+
+.tab-bar  { display: flex; gap: 4px; padding: 10px 12px; }
+.tab {
+  flex: 1; padding: 6px; border-radius: 6px; text-align: center;
+  font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text-dim);
+  transition: all .2s; border: none; background: none; font-family: 'Barlow', sans-serif;
+}
+.tab:hover  { color: var(--orange); }
+.tab.active { background: var(--orange-glow); color: var(--orange); }
+
+.contacts { flex: 1; overflow-y: auto; padding: 12px; }
+.contacts::-webkit-scrollbar { width: 4px; }
+.contacts::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── EMPTY SIDEBAR ── */
+.empty-contacts {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; height: 100%; gap: 14px;
+  padding: 32px 20px; text-align: center;
+}
+.ec-icon { font-size: 52px; opacity: .2; }
+.empty-contacts h3 { font-size: 14px; font-weight: 700; color: var(--text-dim); }
+.empty-contacts p  {
+  font-size: 12px; color: var(--text-faint); line-height: 1.6;
+}
+.ec-divider { width: 32px; height: 2px; background: var(--border); border-radius: 2px; }
+
+/* ── CHAT AREA EMPTY STATE ── */
+.chat-area {
+  flex: 1; display: flex; flex-direction: column;
+  background: var(--bg); min-width: 0; transition: background .3s;
+}
+.empty-chat {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 18px; text-align: center; padding: 40px;
+}
+.empty-chat .big-icon {
+  font-size: 80px; opacity: .12;
+  animation: float 4s ease-in-out infinite;
+}
+@keyframes float {
+  0%,100% { transform: translateY(0);    }
+  50%      { transform: translateY(-12px); }
+}
+.empty-chat h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px; font-weight: 900; letter-spacing: .5px; color: var(--text);
+}
+.empty-chat p  { font-size: 14px; color: var(--text-faint); max-width: 320px; line-height: 1.7; }
+
+.feature-pills { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+.pill {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 20px; padding: 7px 16px;
+  font-size: 12px; font-weight: 600; color: var(--text-dim);
+  display: flex; align-items: center; gap: 6px;
+  transition: all .2s;
+}
+.pill:hover { border-color: var(--orange); color: var(--orange); }
+
+.status-strip {
+  margin-top: 12px; display: flex; align-items: center; gap: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 12px 20px;
+  font-size: 13px; color: var(--text-dim);
+}
+.status-dot-live {
+  width: 9px; height: 9px; border-radius: 50%; background: var(--orange);
+  animation: pulse-live 1.8s infinite; flex-shrink: 0;
+}
+@keyframes pulse-live {
+  0%,100% { box-shadow: 0 0 0 0 var(--orange-glow); }
+  50%      { box-shadow: 0 0 0 6px transparent; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="logo">TOURNA<span>MEET</span></div>
+  <a href="tournameet-chat.html" class="nav-link active">💬 Messages</a>
+  <a href="tournameet-notifications.html" class="nav-link">🔔 Notifications</a>
+  <div class="topbar-actions">
+    <div class="theme-btn" id="themeToggle" title="Toggle theme">☀️</div>
+    <a href="tournameet-notifications.html" class="notif-link" title="Notifications">
+      🔔<span class="notif-badge">0</span>
+    </a>
+    <div class="avatar">JD</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">💬 Messages</div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Search players…" id="searchInput"/>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab active">All</button>
+      <button class="tab">Teams</button>
+      <button class="tab">Rivals</button>
+    </div>
+    <div class="contacts" id="contactList">
+      <div class="empty-contacts">
+        <div class="ec-icon">👥</div>
+        <div class="ec-divider"></div>
+        <h3>No players yet</h3>
+        <p>Once users register and join tournaments, their conversations will appear here.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT AREA -->
+  <div class="chat-area">
+    <div class="empty-chat">
+      <div class="big-icon">⚔️</div>
+      <h2>No Conversations Yet</h2>
+      <p>When players join TournaMeet, you'll be able to message opponents, teammates, and rivals right here.</p>
+      <div class="feature-pills">
+        <div class="pill">💬 Direct Messages</div>
+        <div class="pill">👥 Group Chats</div>
+        <div class="pill">📎 File Sharing</div>
+        <div class="pill">🔔 Notifications</div>
+      </div>
+      <div class="status-strip">
+        <div class="status-dot-live"></div>
+        Waiting for players to register…
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── THEME ─────────────────────────────────────────────────────────────────────
+const html       = document.documentElement;
+const themeBtn   = document.getElementById('themeToggle');
+
+function applyTheme(t) {
+  html.setAttribute('data-theme', t);
+  themeBtn.textContent = t === 'dark' ? '☀️' : '🌙';
+  localStorage.setItem('tm-theme', t);
+}
+
+applyTheme(localStorage.getItem('tm-theme') || 'dark');
+
+themeBtn.onclick = () =>
+  applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+document.querySelectorAll('.tab').forEach(t => {
+  t.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+  };
+});
+</script>
+</body>
+</html>
